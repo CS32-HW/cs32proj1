@@ -1,5 +1,6 @@
-toot: cs31p7soln.cpp
-	./g32 cs31p7soln.cpp -o toot
+.PHONY: toot
+toot:
+	./g32 -o toot *.cpp
 
 .PHONY: clean
 clean:
