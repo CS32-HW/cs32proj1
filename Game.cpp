@@ -76,7 +76,7 @@ void Game::play()
 
     while ( ! p->isPassedOut()  &&  m_city->tooterCount() > 0)
     {
-        cout << "Move (u/d/l/r//q): ";
+        cout << "Move (u/d/l/r//h/q): ";
         string action;
         getline(cin,action);
         if (action.size() == 0)  // player preaches
@@ -96,6 +96,12 @@ void Game::play()
               case 'r':
                 p->move(decodeDirection(action[0]));
                 break;
+              case 'h':
+                m_city->history().display();
+                cout << "\nPress enter to continue. ";
+                cin.ignore(10000,'\n');
+                m_city->display();
+                continue;
             }
         }
         m_city->moveTooters();

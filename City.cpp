@@ -10,7 +10,7 @@ using namespace std;
 ///////////////////////////////////////////////////////////////////////////
 
 City::City(int nRows, int nCols)
- : m_rows(nRows), m_cols(nCols), m_player(nullptr), m_nTooters(0)
+ : m_rows(nRows), m_cols(nCols), m_player(nullptr), m_nTooters(0), m_history(nRows, nCols)
 {
     if (nRows <= 0  ||  nCols <= 0  ||  nRows > MAXROWS  ||  nCols > MAXCOLS)
     {
@@ -191,14 +191,21 @@ void City::preachToTootersAroundPlayer()
         int rowdiff = tp->row() - m_player->row();
         int coldiff = tp->col() - m_player->col();
 
-          // if orthogonally or diagonally adjacent and conversion succeeds
+          // if orthogonally or diagonally adjacent
         if (rowdiff >= -1  &&  rowdiff <= 1  &&
-            coldiff >= -1  &&  coldiff <= 1  &&
-            randInt(1, 3) <= 2)  // 2/3 probability
+            coldiff >= -1  &&  coldiff <= 1)
         {
-            delete m_tooters[k];
-            m_tooters[k] = m_tooters[m_nTooters-1];
-            m_nTooters--;
+            if (randInt(1, 3) <= 2)  // 2/3 probability
+            {
+                delete m_tooters[k];
+                m_tooters[k] = m_tooters[m_nTooters-1];
+                m_nTooters--;
+            }
+            else // failed
+            {
+                m_history.record(tp->row(), tp->col());
+                k++;
+            }
         }
         else
             k++;
@@ -220,6 +227,11 @@ void City::moveTooters()
              (coldiff == 0  &&  (rowdiff == 1  ||  rowdiff == -1)) )
             m_player->getGassed();
     }
+}
+
+History& City::history()
+{
+    return m_history;
 }
 
 bool City::isInBounds(int r, int c) const

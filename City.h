@@ -2,6 +2,7 @@
 #define City_h
 
 #include "globals.h"
+#include "History.h"
 
 class Player;
 class Tooter;
@@ -29,6 +30,8 @@ class City
     void preachToTootersAroundPlayer();
     void moveTooters();
 
+    History& history();
+
   private:
     int     m_rows;
     int     m_cols;
@@ -38,6 +41,8 @@ class City
 
       // Helper functions
     bool isInBounds(int r, int c) const;
+
+    History m_history;
 };
 
 #endif // City_h
