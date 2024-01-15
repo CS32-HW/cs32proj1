@@ -98,7 +98,7 @@ void Game::play()
                 break;
               case 'h':
                 m_city->history().display();
-                cout << "\nPress enter to continue. ";
+                cout << "Press enter to continue. ";
                 cin.ignore(10000,'\n');
                 m_city->display();
                 continue;

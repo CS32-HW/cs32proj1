@@ -48,4 +48,5 @@ void History::display() const
 		}
 		std::cout << std::endl;
 	}
+	std::cout << std::endl;
 }
