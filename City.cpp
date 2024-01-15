@@ -3,6 +3,7 @@
 #include "Tooter.h"
 #include "Player.h"
 #include "City.h"
+#include "History.h"
 using namespace std;
 
 ///////////////////////////////////////////////////////////////////////////
